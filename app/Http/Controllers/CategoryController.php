@@ -18,11 +18,23 @@ class CategoryController extends Controller
     public function create(Request $request)
     {
         $data = $request->validate([
+            'update' => 'required',
             'name' => 'required',
             'color' => 'nullable',
             'icon' => 'nullable',
             'sub_category_of' => 'nullable',
         ]);
+
+        if ($data['update'] > 0) {
+            $category = Category::find($data['update']);
+            $category->name = $data['name'];
+            $category->color = $data['color'];
+            $category->icon = $data['icon'];
+            $category->sub_category_of = $data['sub_category_of'] ?? null;
+            $category->save();
+
+            return redirect()->route('category.index');
+        }
 
         Category::create([
             'user_id' => auth()->id(),
@@ -35,10 +47,9 @@ class CategoryController extends Controller
         return redirect()->route('category.index');
     }
 
-    public function destroy(Request $request, Category $category)
+    public function destroy( $category_id)
     {
-        dd($request, $category);
-        $category->delete();
+        Category::where('id', $category_id)->delete();
         return redirect()->route('category.index');
     }
 }
