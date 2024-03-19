@@ -37,8 +37,8 @@ Route::middleware('auth')->group(function () {
 
     // Category
     Route::get('/category', [CategoryController::class, 'index'])->name('category.index');
-    Route::get('/category/{category_id}/destroy', [CategoryController::class, 'destroy'])->name('category.destroy');
     Route::post('/category', [CategoryController::class, 'create'])->name('category.create');
+    Route::delete('/category/{category_id}', [CategoryController::class, 'destroy'])->name('category.destroy');
 
     // Bank
     Route::get('/bank', [App\Http\Controllers\BankController::class, 'index'])->name('bank.index');
