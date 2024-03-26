@@ -13,7 +13,7 @@
           <input type="hidden" name="_method" id="_method" value="POST">
           <input type="hidden" id="modal-category-id" name="modal-category-id" value="0">
           <div class="modal-body">
-            <p>Tem certeza que deseja excluir a categoria?</p>
+            <p>Tem certeza que deseja excluir o item selecionado?</p>
             <p id="modal-category-name"></p>
           </div>
 

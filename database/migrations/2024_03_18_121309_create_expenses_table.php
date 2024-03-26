@@ -15,9 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->foreignId('category_id')->constrained();
-            $table->foreignId('bank_id')->constrained()->nullable();
-            $table->foreignId('status_id')->constrained()->default(4);
-            $table->foreignId('payment_id')->constrained()->nullable();
+            $table->foreignId('bank_id')->nullable()->constrained();
+            $table->foreignId('status_id')->default(4)->constrained();
+            $table->foreignId('payment_id')->nullable()->constrained();
             $table->string('description');
             $table->float('amount', 8, 2)->nullable();
             $table->date('due_date');

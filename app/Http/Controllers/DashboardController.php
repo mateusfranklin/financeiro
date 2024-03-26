@@ -2,36 +2,93 @@
 
 namespace App\Http\Controllers;
 
+use App\Constants\Status;
+use App\Models\Bank;
 use App\Models\Category;
 use App\Models\Expense;
+use App\Models\Income;
+use DateTime;
 use Illuminate\Http\Request;
 
 class DashboardController extends Controller
 {
-    public function index()
+    private $user;
+    private $statuses;
+
+    public function __construct()
     {
-        $categories = Category::where('user_id', auth()->id())
+        $this->middleware(function ($request, $next) {
+            $this->user = auth()->user();
+            return $next($request);
+        });
+
+        $this->statuses = [
+            Status::Active => 'Ativo',
+            Status::Inactive => 'Desativado',
+            Status::NotShowing => 'Não exibido',
+            Status::Pending => 'Pendente',
+            Status::Paid => 'Pago',
+            Status::Overdue => 'Atrasado',
+            Status::Cancelled => 'Cancelado',
+
+        ];
+    }
+
+    public function index(Request $request)
+    {
+        $current = new DateTime();
+        $selected_month = $request['month'] ?? $current->format('m');
+        $selected_year = $request['year'] ?? $current->format('Y');
+
+        $start_date = (new DateTime($selected_year . '-' . $selected_month . '-01'))->format('Y-m-d');
+        $end_date = (new DateTime($selected_year . '-' . $selected_month+1 . '-0'))->format('Y-m-d');
+
+        $total = [];
+
+        $categories = Category::where('user_id', $this->user->id)
             ->get()
-            ->keyBy('id')
-            ->toArray();
+            ->keyBy('id');
 
-        $expenses = Expense::where('user_id', auth()->id())
+        $banks = Bank::where('user_id', $this->user->id)
             ->get()
-            ->groupBy('category_id')
-            ->toArray();
+            ->keyBy('id');
 
-        // sum all amount on expense where is_paid is true;
-        foreach ($expenses as $cat => $expense) {
-            $categories[$cat]['sum_amount'] = 0;
-            foreach ($expense as $exp) {
-                if ($exp['is_paid']) $categories[$cat]['sum_amount'] += $exp['amount'];
-            }
-        }
+        $expenses = Expense::where('user_id', $this->user->id)
+            ->whereBetween('due_date', [
+                $start_date,
+                $end_date
+            ])
+            ->get();
 
-// dd($expenses);
+        $incomes = Income::where('user_id', $this->user->id)
+            ->whereBetween('due_date', [
+                $start_date,
+                $end_date
+            ])
+            ->get();
 
+        $months = [
+            1 => 'Janeiro',
+            2 => 'Fevereiro',
+            3 => 'Março',
+            4 => 'Abril',
+            5 => 'Maio',
+            6 => 'Junho',
+            7 => 'Julho',
+            8 => 'Agosto',
+            9 => 'Setembro',
+            10 => 'Outubro',
+            11 => 'Novembro',
+            12 => 'Dezembro',
+        ];
 
-        return view('dashboard.index', compact(['categories', 'expenses']));
+        $total = [
+            'expenses' => $expenses->sum('amount') ?? 0,
+            'incomes' => $incomes->sum('amount') ?? 0,
+        ];
+        $total['balance'] = $total['incomes'] - $total['expenses'];
+
+        return view('dashboard.index', compact(['categories', 'banks', 'expenses', 'incomes', 'total', 'months', 'selected_month']));
     }
 
     // create new expense data
@@ -90,6 +147,64 @@ class DashboardController extends Controller
         }
 
 
+
+        return redirect()->route('dashboard.index');
+    }
+
+    public function newExpense(Request $request)
+    {
+        $data = $request->validate([
+            'category_id' => 'required',
+            'bank_id' => 'required',
+            'status_id' => 'nullable',
+            'payment_id' => 'nullable',
+            'description' => 'required',
+            'amount' => 'required',
+            'due_date' => 'required',
+            'notes' => 'nullable',
+            'repeat' => 'nullable',
+        ]);
+
+        Expense::create([
+            'user_id' => $this->user->id,
+            'category_id' => $data['category_id'],
+            'bank_id' => $data['bank_id'],
+            'status_id' => Status::Pending,
+            'payment_id' => $data['payment_id'] ?? null,
+            'description' => $data['description'],
+            'amount' => $data['amount'],
+            'due_date' => $data['due_date'],
+            'notes' => $data['notes'] ?? null,
+            'repeat' => $data['repeat'] ?? null,
+        ]);
+
+        return redirect()->route('dashboard.index');
+    }
+
+    public function newIncome(Request $request)
+    {
+        $data = $request->validate([
+            'bank_id' => 'required',
+            'status_id' => 'nullable',
+            'payment_id' => 'nullable',
+            'company' => 'required',
+            'amount' => 'required',
+            'due_date' => 'required',
+            'notes' => 'nullable',
+            'repeat' => 'nullable',
+        ]);
+
+        Income::create([
+            'user_id' => $this->user->id,
+            'bank_id' => $data['bank_id'],
+            'status_id' => $data['status_id'] ?? Status::Paid,
+            'payment_id' => $data['payment_id'] ?? null,
+            'company' => $data['company'],
+            'notes' => $data['notes'] ?? '',
+            'amount' => $data['amount'],
+            'due_date' => $data['due_date'],
+            'repeat' => $data['repeat'] ?? false,
+        ]);
 
         return redirect()->route('dashboard.index');
     }

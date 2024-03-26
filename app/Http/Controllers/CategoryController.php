@@ -7,12 +7,20 @@ use Illuminate\Http\Request;
 
 class CategoryController extends Controller
 {
-    public function index(Request $request, $category_id = null)
+    private $user;
+
+    public function __construct()
     {
-        $default = null;
-        // dd($request->all());
+        $this->middleware(function ($request, $next) {
+            $this->user = auth()->user();
+            return $next($request);
+        });
+    }
+
+    public function index()
+    {
         $categories = Category::all();
-        return view('category', compact('categories', 'default'));
+        return view('config.category', compact('categories'));
     }
 
     public function create(Request $request)
@@ -26,18 +34,12 @@ class CategoryController extends Controller
         ]);
 
         if ($data['update'] > 0) {
-            $category = Category::find($data['update']);
-            $category->name = $data['name'];
-            $category->color = $data['color'];
-            $category->icon = $data['icon'];
-            $category->sub_category_of = $data['sub_category_of'] ?? null;
-            $category->save();
-
+            $this->update($data);
             return redirect()->route('category.index');
         }
 
         Category::create([
-            'user_id' => auth()->id(),
+            'user_id' => $this->user->id,
             'name' => $data['name'],
             'color' => $data['color'],
             'icon' => $data['icon'],
@@ -47,7 +49,17 @@ class CategoryController extends Controller
         return redirect()->route('category.index');
     }
 
-    public function destroy( $category_id)
+    public function update($data)
+    {
+        Category::where('id', $data['update'])->update([
+            'name' => $data['name'],
+            'color' => $data['color'],
+            'icon' => $data['icon'],
+            'sub_category_of' => $data['sub_category_of'] ?? null,
+        ]);
+    }
+
+    public function destroy($category_id)
     {
         Category::where('id', $category_id)->delete();
         return redirect()->route('category.index');

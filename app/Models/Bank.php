@@ -47,12 +47,12 @@ class Bank extends Model
 
     public function setNameAttribute($value)
     {
-        $this->attributes['name'] = ucwords($value);
+        $this->attributes['name'] = $value;
     }
 
     public function getNameAttribute($value)
     {
-        return ucwords($value);
+        return $value;
     }
 
     public function setIconAttribute($value)
@@ -67,11 +67,11 @@ class Bank extends Model
 
     public function setBalanceAttribute($value)
     {
-        $this->attributes['balance'] = number_format($value, 2);
+        $this->attributes['balance'] = number_format($value, 2, '.', '');
     }
 
     public function getBalanceAttribute($value)
     {
-        return number_format($value, 2);
+        return number_format($value, 2, '.', '');
     }
 }

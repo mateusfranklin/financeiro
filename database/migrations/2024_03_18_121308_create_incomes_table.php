@@ -14,9 +14,9 @@ return new class extends Migration
         Schema::create('incomes', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->foreignId('bank_id')->constrained()->nullable();
-            $table->foreignId('status_id')->constrained()->default(5);
-            $table->foreignId('payment_id')->constrained()->nullable();
+            $table->foreignId('bank_id')->nullable()->constrained();
+            $table->foreignId('status_id')->default(5)->constrained();
+            $table->foreignId('payment_id')->nullable()->constrained();
             $table->string('company');
             $table->string('notes')->nullable();
             $table->float('amount', 8, 2);

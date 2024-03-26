@@ -74,12 +74,12 @@ class Income extends Model
 
     public function setAmountAttribute($value)
     {
-        $this->attributes['amount'] = number_format($value, 2);
+        $this->attributes['amount'] = number_format($value, 2, '.', '');
     }
 
     public function getAmountAttribute($value)
     {
-        return number_format($value, 2);
+        return number_format($value, 2, '.', '');
     }
 
     public function setDueDateAttribute($value)

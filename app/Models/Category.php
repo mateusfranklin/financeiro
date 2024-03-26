@@ -35,12 +35,12 @@ class Category extends Model
 
     public function setNameAttribute($value)
     {
-        $this->attributes['name'] = strtolower($value);
+        $this->attributes['name'] = $value;
     }
 
     public function getNameAttribute($value)
     {
-        return ucwords($value);
+        return $value;
     }
 
     public function setColorAttribute($value)
