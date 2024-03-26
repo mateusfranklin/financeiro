@@ -6,10 +6,21 @@
   fail_on_prepare_env_warning: true
   resources: "NANO"
   actions:
-  - action: "Transfer to 72.167.205.111"
+  - action: "Deploy the code"
     type: "SFTP"
     local_path: "/"
     remote_path: "public_html"
     login: "wkqduyk7599z"
     password: "secure!WImb5DknLrHoI5eoWKLCvw==.6namlscc59wNuyaKp9FYDA=="
     host: "72.167.205.111"
+  - action: "Execute commands"
+    type: "SSH_COMMAND"
+    working_directory: "/home/wkqduyk7599z/public_html"
+    login: "wkqduyk7599z"
+    password: "secure!WImb5DknLrHoI5eoWKLCvw==.6namlscc59wNuyaKp9FYDA=="
+    host: "72.167.205.111"
+    commands:
+    - "composer install"
+    - "npm install"
+    - "php artisan migrate"
+    run_as_script: true
