@@ -5,3 +5,11 @@
     - "refs/heads/master"
   fail_on_prepare_env_warning: true
   resources: "NANO"
+  actions:
+  - action: "Transfer to 72.167.205.111"
+    type: "SFTP"
+    local_path: "/"
+    remote_path: "public_html"
+    login: "wkqduyk7599z"
+    password: "secure!WImb5DknLrHoI5eoWKLCvw==.6namlscc59wNuyaKp9FYDA=="
+    host: "72.167.205.111"
