@@ -27,14 +27,14 @@
     run_as_script: true
   - action: "Send email on success"
     type: "EMAIL"
-    title: "$BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
+    title: "#$BUDDY_EXECUTION_ID - $BUDDY_PIPELINE_NAME successfully executed"
     content: "<p style=\"color: green;\"><b>SUCCESS</b></p>[#$BUDDY_EXECUTION_ID] $BUDDY_PIPELINE_NAME execution by $BUDDY_TRIGGERING_ACTOR"
     send_as_html: true
     recipients: "contato@mateusfranklin.com"
   - action: "Send email on failure"
     type: "EMAIL"
     trigger_time: "ON_FAILURE"
-    title: "$BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
+    title: "#$BUDDY_EXECUTION_ID - $BUDDY_PIPELINE_NAME failed"
     content: "<p style=\"color: red;\"><b>FAIL</b></p>[#$BUDDY_EXECUTION_ID]  $BUDDY_PIPELINE_NAME execution by $BUDDY_TRIGGERING_ACTOR"
     send_as_html: true
     recipients: "contato@mateusfranklin.com"
