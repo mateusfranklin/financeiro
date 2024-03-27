@@ -22,5 +22,6 @@
     commands:
     - "composer install"
     - "npm install"
+    - "php artisan cache:clear"
     - "php artisan migrate"
     run_as_script: true
