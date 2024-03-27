@@ -20,7 +20,8 @@
     password: "secure!WImb5DknLrHoI5eoWKLCvw==.6namlscc59wNuyaKp9FYDA=="
     host: "72.167.205.111"
     commands:
-    - "composer instal"
+    - "erro_blablabla"
+    - "composer install"
     - "npm install"
     - "php artisan cache:clear"
     - "php artisan migrate"
