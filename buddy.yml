@@ -26,9 +26,15 @@
     - "php artisan cache:clear"
     - "php artisan migrate"
     run_as_script: true
-  - action: "Send email"
+  - action: "Send email on success"
     type: "EMAIL"
     title: "$BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
-    content: "[#$BUDDY_EXECUTION_ID] $BUDDY_PIPELINE_NAME execution by $BUDDY_TRIGGERING_ACTOR"
+    content: "[#$BUDDY_EXECUTION_ID] <p style=\"color: green;\">SUCCESS</p>: $BUDDY_PIPELINE_NAME execution by $BUDDY_TRIGGERING_ACTOR"
     recipients: "contato@mateusfranklin.com"
     ignore_errors: true
+  - action: "Send email on failure"
+    type: "EMAIL"
+    trigger_time: "ON_FAILURE"
+    title: "$BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
+    content: "[#$BUDDY_EXECUTION_ID] <p style=\"color: red;\">FAIL</p>: $BUDDY_PIPELINE_NAME execution by $BUDDY_TRIGGERING_ACTOR failed"
+    recipients: "contato@mateusfranklin.com"
