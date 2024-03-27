@@ -32,5 +32,6 @@
     content: |-
       <p style="color: red;"><b>FAIL</b></p>[#$BUDDY_EXECUTION_ID]  $BUDDY_PIPELINE_NAME execution by $BUDDY_TRIGGERING_ACTOR
 
-      $BUDDY_EXECUTION_CHANGELOG    send_as_html: true
+      $BUDDY_EXECUTION_CHANGELOG
+    send_as_html: true
     recipients: "contato@mateusfranklin.com"
