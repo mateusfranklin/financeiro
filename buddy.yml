@@ -29,6 +29,6 @@
   - action: "Send email"
     type: "EMAIL"
     title: "$BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
-    content: "[#$BUDDY_EXECUTION_ID] $BUDDY_PIPELINE_NAME execution by $BUDDY_TRIGGERING_ACTOR <$BUDDY_TRIGGERING_ACTOR_URL>. Successful: $BUDDY_EXECUTION_STATUS"
+    content: "[#$BUDDY_EXECUTION_ID] $BUDDY_PIPELINE_NAME execution by $BUDDY_TRIGGERING_ACTOR"
     recipients: "contato@mateusfranklin.com"
     ignore_errors: true
