@@ -20,7 +20,6 @@
     password: "secure!WImb5DknLrHoI5eoWKLCvw==.6namlscc59wNuyaKp9FYDA=="
     host: "72.167.205.111"
     commands:
-    - "erro_blablabla"
     - "composer install"
     - "npm install"
     - "php artisan cache:clear"
@@ -36,6 +35,6 @@
     type: "EMAIL"
     trigger_time: "ON_FAILURE"
     title: "$BUDDY_PIPELINE_NAME execution #$BUDDY_EXECUTION_ID"
-    content: "<p style=\"color: red;\"><b>FAIL</b></p>[#$BUDDY_EXECUTION_ID]  $BUDDY_PIPELINE_NAME execution by $BUDDY_TRIGGERING_ACTOR failed"
+    content: "<p style=\"color: red;\"><b>FAIL</b></p>[#$BUDDY_EXECUTION_ID]  $BUDDY_PIPELINE_NAME execution by $BUDDY_TRIGGERING_ACTOR"
     send_as_html: true
     recipients: "contato@mateusfranklin.com"
