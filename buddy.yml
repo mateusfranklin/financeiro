@@ -16,6 +16,7 @@
     - "git pull origin master"
     - "composer install"
     - "npm install"
+    - "php artisan key:generate"
     - "php artisan cache:clear"
     - "php artisan migrate"
     run_as_script: true
