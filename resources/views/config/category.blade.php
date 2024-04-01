@@ -57,6 +57,7 @@
     </div>
   </div>
 @endsection
+
 @vite(['resources/js/category.js'])
 @include('components.modal.new-category')
 @include('components.modal.confirm')
