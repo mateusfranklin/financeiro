@@ -8,7 +8,7 @@
   actions:
   - action: "Execute commands"
     type: "SSH_COMMAND"
-    working_directory: "/home/wkqduyk7599z/public_html"
+    working_directory: "/home/wkqduyk7599z/sites/financeiro"
     login: "wkqduyk7599z"
     password: "secure!WImb5DknLrHoI5eoWKLCvw==.6namlscc59wNuyaKp9FYDA=="
     host: "72.167.205.111"
