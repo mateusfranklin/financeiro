@@ -18,7 +18,7 @@
     - "npm install"
     - "php artisan key:generate"
     - "php artisan cache:clear"
-    - "php artisan migrate"
+    - "php artisan migrate --force"
     run_as_script: true
   - action: "Send email on success"
     type: "EMAIL"
