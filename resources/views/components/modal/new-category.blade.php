@@ -73,5 +73,3 @@
       </div>
     </div>
   </div>
-
-  @vite(['resources/js/components/modal/new-category.js'])
