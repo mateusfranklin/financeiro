@@ -8,9 +8,52 @@
     "src": "node_modules/bootstrap-icons/font/fonts/bootstrap-icons.woff2"
   },
   "resources/js/app.js": {
-    "file": "assets/app-Vm_FIMDF.js",
+    "file": "assets/app-KAcz78gb.js",
+    "imports": [
+      "resources/js/bootstrap.js"
+    ],
     "isEntry": true,
     "src": "resources/js/app.js"
+  },
+  "resources/js/bank.js": {
+    "file": "assets/bank-nONXS8Mr.js",
+    "isEntry": true,
+    "src": "resources/js/bank.js"
+  },
+  "resources/js/bootstrap.js": {
+    "file": "assets/bootstrap-6zflz9yx.js",
+    "isEntry": true,
+    "src": "resources/js/bootstrap.js"
+  },
+  "resources/js/category.js": {
+    "file": "assets/category-xJ8qTuJN.js",
+    "isEntry": true,
+    "src": "resources/js/category.js"
+  },
+  "resources/js/components/modal/create-financial.js": {
+    "file": "assets/create-financial-GjfSWV0p.js",
+    "isEntry": true,
+    "src": "resources/js/components/modal/create-financial.js"
+  },
+  "resources/js/components/modal/new-bank.js": {
+    "file": "assets/new-bank-GjfSWV0p.js",
+    "isEntry": true,
+    "src": "resources/js/components/modal/new-bank.js"
+  },
+  "resources/js/dashboard.js": {
+    "file": "assets/dashboard-D14Owri3.js",
+    "isEntry": true,
+    "src": "resources/js/dashboard.js"
+  },
+  "resources/js/helpers.js": {
+    "file": "assets/helpers-JyqvySXr.js",
+    "isEntry": true,
+    "src": "resources/js/helpers.js"
+  },
+  "resources/js/menu.js": {
+    "file": "assets/menu-w40geAFS.js",
+    "isEntry": true,
+    "src": "resources/js/menu.js"
   },
   "resources/sass/app.scss": {
     "file": "assets/app--6oankqc.css",

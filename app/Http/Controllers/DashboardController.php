@@ -41,7 +41,7 @@ class DashboardController extends Controller
         $selected_year = $request['year'] ?? $current->format('Y');
 
         $start_date = (new DateTime($selected_year . '-' . $selected_month . '-01'))->format('Y-m-d');
-        $end_date = (new DateTime($selected_year . '-' . $selected_month+1 . '-0'))->format('Y-m-d');
+        $end_date = (new DateTime($selected_year . '-' . $selected_month + 1 . '-0'))->format('Y-m-d');
 
         $total = [];
 
@@ -53,19 +53,22 @@ class DashboardController extends Controller
             ->get()
             ->keyBy('id');
 
-        $expenses = Expense::where('user_id', $this->user->id)
-            ->whereBetween('due_date', [
-                $start_date,
-                $end_date
-            ])
-            ->get();
-
         $incomes = Income::where('user_id', $this->user->id)
             ->whereBetween('due_date', [
                 $start_date,
                 $end_date
             ])
             ->get();
+
+        $allExpenses = Expense::where('user_id', $this->user->id)
+            ->whereBetween('due_date', [
+                $start_date,
+                $end_date
+            ])
+            ->get();
+
+        $paidExpenses = $allExpenses->where('is_paid', true);
+        $notPaidExpenses = $allExpenses->where('is_paid', false);
 
         $months = [
             1 => 'Janeiro',
@@ -83,12 +86,14 @@ class DashboardController extends Controller
         ];
 
         $total = [
-            'expenses' => $expenses->sum('amount') ?? 0,
+            'expenses' => $allExpenses->sum('amount') ?? 0,
+            'paid_expenses' => $paidExpenses->sum('amount') ?? 0,
+            'not_paid_expenses' => $notPaidExpenses->sum('amount') ?? 0,
             'incomes' => $incomes->sum('amount') ?? 0,
         ];
         $total['balance'] = $total['incomes'] - $total['expenses'];
 
-        return view('dashboard.index', compact(['categories', 'banks', 'expenses', 'incomes', 'total', 'months', 'selected_month']));
+        return view('dashboard.index', compact(['categories', 'banks', 'allExpenses','paidExpenses', 'notPaidExpenses' , 'incomes', 'total', 'months', 'selected_month']));
     }
 
     // create new expense data

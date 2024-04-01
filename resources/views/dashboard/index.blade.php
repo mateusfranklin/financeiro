@@ -68,7 +68,7 @@
         <div class="card mt-3">
           <div class="card-header">{{ __('Despesas') }}</div>
           <div class="card-body">
-            @if ($expenses->isEmpty())
+            @if ($allExpenses->isEmpty())
               <li class="list-group list-group-item-primary">
                 Nenhuma despesa cadastrada
               </li>
@@ -83,7 +83,7 @@
                   </tr>
                 </thead>
                 <tbody>
-                  @foreach ($expenses as $expense)
+                  @foreach ($allExpenses as $expense)
                     <tr>
                       <td scope="row">{{ $expense->description }}</td>
                       <td class="d-none d-md-table-cell">{{ $expense->payment_id }}@if (!empty($expense->payment_id) && !empty($expense->notes))
@@ -99,7 +99,7 @@
           </div>
         </div>
 
-        @if ($expenses->sum('amount') > 0 || $incomes->sum('amount') > 0)
+        @if ($allExpenses->sum('amount') > 0 || $incomes->sum('amount') > 0)
           {{-- Totais --}}
           <div class="card mt-3">
             <div class="card-header">{{ __('Totais') }}</div>
@@ -134,6 +134,7 @@
   </div>
 @endsection
 @vite(['resources/js/dashboard.js'])
+{{-- {{ Html::script('js/dashboard.js') }} --}}
 @include('components.modal.confirm')
 @include('components.modal.new-expense')
 @include('components.modal.new-income')
