@@ -27,7 +27,7 @@
 
 
     <!-- Sidebar -->
-    <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
+    {{-- <div class="offcanvas offcanvas-start" data-bs-scroll="true" tabindex="-1" id="offcanvasWithBothOptions"
       aria-labelledby="offcanvasWithBothOptionsLabel">
       <div class="offcanvas-header">
         <h5 class="offcanvas-title" id="offcanvasWithBothOptionsLabel">Financeiro</h5>
@@ -40,7 +40,7 @@
           </a>
         </p>
       </div>
-    </div>
+    </div> --}}
 
 
     {{-- <div id="sidebar" class="col-2">
@@ -64,12 +64,12 @@
       <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm mb-3">
         <div class="container">
 
-          <button class="btn btn-primary m-2" type="button" data-bs-toggle="offcanvas"
+          {{-- <button class="btn btn-primary m-2" type="button" data-bs-toggle="offcanvas"
             data-bs-target="#offcanvasWithBothOptions" aria-controls="offcanvasWithBothOptions">
             <i class="fa-solid fa-bars"></i>
-          </button>
+          </button> --}}
 
-          <a class="navbar-brand" href="{{ url('/') }}">
+          <a class="navbar-brand" href="{{ url('/dashboard') }}">
             {{ config('app.name', 'Laravel') }}
           </a>
           <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
@@ -80,9 +80,9 @@
 
           <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <!-- Left Side Of Navbar -->
-            <ul class="navbar-nav me-auto">
+            {{-- <ul class="navbar-nav me-auto">
 
-            </ul>
+            </ul> --}}
 
             <!-- Right Side Of Navbar -->
             <ul class="navbar-nav ms-auto">
