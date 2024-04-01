@@ -45,11 +45,14 @@ class DashboardController extends Controller
 
         $total = [];
 
+        // get all categories where user_id is the same as the authenticated user or null
         $categories = Category::where('user_id', $this->user->id)
+            ->orWhereNull('user_id')
             ->get()
             ->keyBy('id');
 
         $banks = Bank::where('user_id', $this->user->id)
+            ->orWhereNull('user_id')
             ->get()
             ->keyBy('id');
 
@@ -93,7 +96,7 @@ class DashboardController extends Controller
         ];
         $total['balance'] = $total['incomes'] - $total['expenses'];
 
-        return view('dashboard.index', compact(['categories', 'banks', 'allExpenses','paidExpenses', 'notPaidExpenses' , 'incomes', 'total', 'months', 'selected_month']));
+        return view('dashboard.index', compact(['categories', 'banks', 'allExpenses', 'paidExpenses', 'notPaidExpenses', 'incomes', 'total', 'months', 'selected_month']));
     }
 
     // create new expense data
