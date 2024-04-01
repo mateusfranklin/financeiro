@@ -55,6 +55,11 @@
     "isEntry": true,
     "src": "resources/js/menu.js"
   },
+  "resources/sass/_variables.scss": {
+    "file": "assets/_variables-w40geAFS.js",
+    "isEntry": true,
+    "src": "resources/sass/_variables.scss"
+  },
   "resources/sass/app.scss": {
     "file": "assets/app--6oankqc.css",
     "isEntry": true,
